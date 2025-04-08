@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+
+sed -i "s|http://localhost:3333|${CLIENT_URL}/backend/|g" /app/www/public/main.js
+
+exec \
+    s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 3000" \
+        cd /app/backend s6-setuidgid abc npm start
