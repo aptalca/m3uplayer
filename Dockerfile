@@ -13,12 +13,12 @@ RUN \
     npm && \
   echo "**** install backend and frontend ****" && \
   if [ -z "${APP_VERSIONS+x}" ]; then \
-    FRONTEND_RELEASE=$(curl -sX GET "https://api.github.com/repos/4gray/iptvnator/releases" \
+    FRONTEND_RELEASE=$(curl -sfX GET "https://api.github.com/repos/4gray/iptvnator/releases" \
       | jq -r '.[0].tag_name'); \
-    BACKEND_COMMIT=$(curl -sX GET "https://api.github.com/repos/4gray/iptvnator-backend/commits" \
+    BACKEND_COMMIT=$(curl -sfX GET "https://api.github.com/repos/4gray/iptvnator-backend/commits" \
       | jq -r '.[0].sha' | cut -c -8); \
   else \
-    FRONTEND_RELEASE=$(echo "${APP_VERSIONS}" | sed 's|-.{8}$||'); \
+    FRONTEND_RELEASE=$(echo "${APP_VERSIONS}" | sed -r 's|-.{8}$||'); \
     BACKEND_COMMIT=$(echo "${APP_VERSIONS}" | sed -r 's|.*-(.{8})$|\1|'); \
   fi && \
   mkdir -p /app/backend && \

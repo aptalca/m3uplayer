@@ -59,9 +59,9 @@ jobs:
             echo "Baseimage seems to be the same. Skipping."
           fi
           echo "Checking Frontend/Backend for updates"
-          FRONTEND_RELEASE=$(curl -sX GET "https://api.github.com/repos/4gray/iptvnator/releases" \
+          FRONTEND_RELEASE=$(curl -sfX GET "https://api.github.com/repos/4gray/iptvnator/releases" \
             | jq -r '.[0].tag_name')
-          BACKEND_COMMIT=$(curl -sX GET "https://api.github.com/repos/4gray/iptvnator-backend/commits" \
+          BACKEND_COMMIT=$(curl -sfX GET "https://api.github.com/repos/4gray/iptvnator-backend/commits" \
             | jq -r '.[0].sha' | cut -c -8)
           APP_VERSIONS="${FRONTEND_RELEASE}-${BACKEND_COMMIT}"
           if [ -z "${FRONTEND_RELEASE}" ] || [ "${FRONTEND_RELEASE}" = "null" ] || [ -z "${BACKEND_COMMIT}" ] || [ "${BACKEND_COMMIT}" = "null" ]; then
