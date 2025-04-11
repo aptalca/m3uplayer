@@ -42,7 +42,11 @@ RUN \
   cd /tmp/frontend && \
   npm ci && \
   npm run build:web && \
-  mv /tmp/frontend/dist/* /app/www/public/ && \
+  if [ -d "/tmp/frontend/dist/browser" ]; then \
+    mv /tmp/frontend/dist/browser/* /app/www/public/; \
+  else \
+    mv /tmp/frontend/dist/* /app/www/public/; \
+  fi && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/* \
