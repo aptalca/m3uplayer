@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.21
+FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.22
 
 LABEL maintainer="aptalca"
 LABEL org.opencontainers.image.source=https://github.com/aptalca/m3uplayer
