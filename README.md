@@ -20,3 +20,7 @@ services:
       - TZ=America/New_York
       - CLIENT_URL=http://192.168.1.5:3576
     restart: unless-stopped
+```
+
+**NOTE:**
+While this branch builds and pushes upstream releases to the `latest` tag, the [dev branch](https://github.com/aptalca/m3uplayer/tree/dev) of this repo builds and pushes upstream commits to the `dev` tag. You can pull them via `docker pull ghcr.io/aptalca/m3uplayer:dev`.

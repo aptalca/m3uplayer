@@ -15,6 +15,14 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v3.1.0
 
+      - name: Trigger dev branch updater
+        run: |
+          curl -iX POST \
+            -H "Authorization: token ${{ secrets.CR_PAT }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"ref\":\"refs/heads/dev\"}" \
+            https://api.github.com/repos/aptalca/${REPO}/actions/workflows/update.yml/dispatches
+
       - name: Check for updates and trigger
         run: |
           git config --local user.email "bot@aptalca.doot"
