@@ -59,12 +59,12 @@ jobs:
             echo "Baseimage seems to be the same. Skipping."
           fi
           echo "Checking Frontend/Backend for updates"
-          FRONTEND_RELEASE=$(curl -sfX GET "https://api.github.com/repos/4gray/iptvnator/releases" \
-            | jq -r '.[0].tag_name')
+          FRONTEND_COMMIT=$(curl -sfX GET "https://api.github.com/repos/4gray/iptvnator/commits" \
+            | jq -r '.[0].sha' | cut -c -8)
           BACKEND_COMMIT=$(curl -sfX GET "https://api.github.com/repos/4gray/iptvnator-backend/commits" \
             | jq -r '.[0].sha' | cut -c -8)
-          APP_VERSIONS="${FRONTEND_RELEASE}-${BACKEND_COMMIT}"
-          if [ -z "${FRONTEND_RELEASE}" ] || [ "${FRONTEND_RELEASE}" = "null" ] || [ -z "${BACKEND_COMMIT}" ] || [ "${BACKEND_COMMIT}" = "null" ]; then
+          APP_VERSIONS="${FRONTEND_COMMIT}-${BACKEND_COMMIT}"
+          if [ -z "${FRONTEND_COMMIT}" ] || [ "${FRONTEND_COMMIT}" = "null" ] || [ -z "${BACKEND_COMMIT}" ] || [ "${BACKEND_COMMIT}" = "null" ]; then
             echo "Unable to retrieve Frontend/Backend versions. Skipping."
             echo "Unable to retrieve Frontend/Backend versions. Skipping." >> $GITHUB_STEP_SUMMARY
             APP_VERSIONS=$(cat app_versions.txt)
@@ -92,7 +92,7 @@ jobs:
             curl -iX POST \
               -H "Authorization: token ${{ secrets.CR_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
-              -d "{\"ref\":\"refs/heads/main\"}" \
+              -d "{\"ref\":\"refs/heads/dev\"}" \
               https://api.github.com/repos/aptalca/${REPO}/actions/workflows/BuildImage.yml/dispatches
           else
             echo "No changes to either baseimage or Frontend/Backend versions."

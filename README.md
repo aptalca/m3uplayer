@@ -1,6 +1,6 @@
 # m3uplayer
 
-Combines the frontend and backend of IPTVnator in a single docker image served under one url.
+Combines the frontend and backend of IPTVnator in a single docker image served under one url. This branch builds commits to upstream repo.
 
 Requires the var `CLIENT_URL` set to the exact address the user will be accessing it in the browser at (ie. `http://192.168.1.5:3576` or `http://mydomain.url`).
 
@@ -10,7 +10,7 @@ Sample compose yaml:
 ```yaml
 services:
   m3uplayer:
-    image: ghcr.io/aptalca/m3uplayer
+    image: ghcr.io/aptalca/m3uplayer:dev
     container_name: m3uplayer
     ports:
       - 3576:80
